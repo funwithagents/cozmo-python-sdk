@@ -79,10 +79,10 @@ verlink_base_url = 'http://cozmosdk.anki.com/%s/' % sdk_version
 verlink_version = sdk_version
 
 intersphinx_mapping = {
-    'python': ('https://docs.python.org/3.5', None),
-    'numpy': ('http://docs.scipy.org/doc/numpy/', None),
-    'PIL': ('https://pillow.readthedocs.io/en/latest/', None)
-    }
+    'python': ('https://docs.python.org/3', None),
+    'numpy': ('https://numpy.org/doc/stable/', None),
+    'PIL': ('https://pillow.readthedocs.io/en/stable/', None)
+}
 
 autosummary_generate = True
 autodoc_default_flags = ['members']
@@ -137,7 +137,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = []
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.

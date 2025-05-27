@@ -68,5 +68,5 @@ def verlink_role(typ, rawtext, text, lineno, inliner, options={}, content=[]):
 
 def setup(app):
     app.add_role('verlink', verlink_role)
-    app.add_config_value('verlink_base_url', None, {})
-    app.add_config_value('verlink_version', None, {})
+    app.add_config_value('verlink_base_url', None, 'env')
+    app.add_config_value('verlink_version', None, 'env')
