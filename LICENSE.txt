@@ -1,3 +1,6 @@
+This is a fork of Anki's Cozmo SDK, originally licensed under Apache 2.0.
+Modifications in this fork are also licensed under Apache 2.0.
+
 Unless otherwise stated in that file, or the folder containing that file, all
 files in the Cozmo SDK are Copyright (c) 2016-2017 Anki Inc. and licensed under
 the Apache 2.0 License:
