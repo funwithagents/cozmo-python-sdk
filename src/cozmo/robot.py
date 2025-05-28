@@ -1,3 +1,6 @@
+# Modified in forked repository for funwithagents
+# Changes include the upgrade of asyncio calls for compatibility with recent versions
+#
 # Copyright (c) 2016-2017 Anki, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -1365,7 +1368,7 @@ class Robot(event.Dispatcher):
         '''
         self.drive_wheel_motors(l_wheel_speed, r_wheel_speed, l_wheel_acc, r_wheel_acc)
         if duration:
-            await asyncio.sleep(duration, loop=self._loop)
+            await asyncio.sleep(duration)
             self.stop_all_motors()
 
     def stop_all_motors(self):
@@ -2221,7 +2224,7 @@ class Robot(event.Dispatcher):
         await self.drive_wheels(-30, -30)
         timeout = util.Timeout(timeout=max_drive_time)
         while not (timeout.is_timed_out or self.is_on_charger) :
-            await asyncio.sleep(0.1, loop=self.loop)
+            await asyncio.sleep(0.1)
 
         self.stop_all_motors()
 

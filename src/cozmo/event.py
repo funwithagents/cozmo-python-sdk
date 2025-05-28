@@ -1,3 +1,6 @@
+# Modified in forked repository for funwithagents
+# Changes include the upgrade of asyncio calls for compatibility with recent versions
+#
 # Copyright (c) 2016 Anki, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -485,7 +488,7 @@ class Dispatcher(base.Base):
 
         self.add_event_handler(event, f)
         if timeout:
-             return await asyncio.wait_for(f, timeout, loop=self._loop)
+             return await asyncio.wait_for(f, timeout)
         return await f
 
 
@@ -589,7 +592,7 @@ async def wait_for_first(*futures, discard_remaining=True, loop=None):
     Returns:
         The first result, or raised exception
     '''
-    done, pending = await asyncio.wait(futures, loop=loop, return_when=asyncio.FIRST_COMPLETED)
+    done, pending = await asyncio.wait(futures, return_when=asyncio.FIRST_COMPLETED)
 
     # collect the results from all "done" futures; only one will be returned
     result = None

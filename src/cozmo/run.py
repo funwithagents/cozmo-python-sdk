@@ -1,3 +1,6 @@
+# Modified in forked repository for funwithagents
+# Changes include the upgrade of asyncio calls for compatibility with recent versions
+#
 # Copyright (c) 2016-2017 Anki, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -361,7 +364,7 @@ class FirstAvailableConnector(DeviceConnector):
 
     async def _do_connect(self, connector,loop, protocol_factory, conn_check):
         connect = connector.connect(loop, protocol_factory, conn_check)
-        result = await asyncio.gather(connect, loop=loop, return_exceptions=True)
+        result = await asyncio.gather(connect, return_exceptions=True)
         return result[0]
 
     async def connect(self, loop, protocol_factory, conn_check):
