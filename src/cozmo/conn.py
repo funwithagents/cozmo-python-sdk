@@ -46,10 +46,10 @@ from . import version
 from . import _clad
 from ._clad import _clad_to_engine_cozmo, _clad_to_engine_iface, _clad_to_game_cozmo, _clad_to_game_iface
 
-_BYPASS_CLAD_VERSION_CHECK = False
-def bypass_clad_version_check(value: bool):
-    global _BYPASS_CLAD_VERSION_CHECK
-    _BYPASS_CLAD_VERSION_CHECK = value
+_BYPASS_VERSION_CHECK = False
+def bypass_version_check(value: bool):
+    global _BYPASS_VERSION_CHECK
+    _BYPASS_VERSION_CHECK = value
 
 
 class EvtConnected(event.Event):
@@ -329,7 +329,7 @@ class CozmoConnection(event.Dispatcher, clad_protocol.CLADProtocol):
             return
 
         # Verify that engine and SDK are compatible
-        if _BYPASS_CLAD_VERSION_CHECK:
+        if _BYPASS_VERSION_CHECK:
             clad_hashes_match = True
             build_versions_match = True
         else:
