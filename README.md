@@ -38,6 +38,24 @@ You can check the **"Mobile Device Setup"** section of the installation page cor
 > For the moment, we have only validated the usage of the Cozmo SDK using an Android phone and ADB.
 > The usage with an iOS phone still needs to be validated/updated.
 
+
+### Summarized setup
+
+- Install the Cozmo app on you mobile phone
+- Connect the mobile phone to the computer running the SDK via USB (+ additional setup as described in the  **"Mobile Device Setup"** section, based on for your computer OS and phone OS)
+- Turn on your Cozmo robot
+- Connect your mobile phone to the Wifi of the Cozmo robot (the wifi id should be "Cozmo_XXX" and the password should be displayed on the screen of the robot)
+- Open the Cozmo application
+- Connect the application with the robot (by clicking on the big blue "Connect" button)
+- (for the first connexion with Cozmo, you might need to go through some tutorial here)
+- (you can enjoy for a while the default behavior of Cozmo as implemented in the app, it is quite fun!)
+- Enable "SDK mode"
+    - go to the settings (icon in the top right corner of the app)
+    - scroll the pages until reaching a page with a button "Enable the SDK"
+    - click on this button
+=> you can now connect to the robot using the SDK via your python scripts
+
+
 ## SDK & Application compatibility workaround
 
 The latest version of the Cozmo mobile application (3.6.X) seems to rely on a newer version (3.6) of `cozmoclad` library, which is different from the latest version (3.4) that is currently available on Pypi.
