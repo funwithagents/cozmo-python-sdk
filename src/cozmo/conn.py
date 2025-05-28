@@ -46,6 +46,11 @@ from . import version
 from . import _clad
 from ._clad import _clad_to_engine_cozmo, _clad_to_engine_iface, _clad_to_game_cozmo, _clad_to_game_iface
 
+_BYPASS_CLAD_VERSION_CHECK = False
+def bypass_clad_version_check(value: bool):
+    global _BYPASS_CLAD_VERSION_CHECK
+    _BYPASS_CLAD_VERSION_CHECK = value
+
 
 class EvtConnected(event.Event):
     '''Triggered when the initial connection to the device has been established.
@@ -324,23 +329,27 @@ class CozmoConnection(event.Dispatcher, clad_protocol.CLADProtocol):
             return
 
         # Verify that engine and SDK are compatible
-        clad_hashes_match = False
-        try:
-            cozmoclad.assert_clad_match(msg.toGameCLADHash, msg.toEngineCLADHash)
+        if _BYPASS_CLAD_VERSION_CHECK:
             clad_hashes_match = True
-        except cozmoclad.CLADHashMismatch as exc:
-            logger.error(exc)
+            build_versions_match = True
+        else:
+            clad_hashes_match = False
+            try:
+                cozmoclad.assert_clad_match(msg.toGameCLADHash, msg.toEngineCLADHash)
+                clad_hashes_match = True
+            except cozmoclad.CLADHashMismatch as exc:
+                logger.error(exc)
 
-        build_versions_match = (cozmoclad.__build_version__ == '00000.00000.00000'
-            or cozmoclad.__build_version__ == msg.buildVersion)
+            build_versions_match = (cozmoclad.__build_version__ == '00000.00000.00000'
+                or cozmoclad.__build_version__ == msg.buildVersion)
 
-        if clad_hashes_match and not build_versions_match:
-            # If CLAD hashes match, and this is only a minor version change,
-            # then still allow connection (it's just an app hotfix
-            # that didn't require CLAD or SDK changes)
-            sdk_major_version = cozmoclad.__build_version__.split(".")[0:2]
-            build_major_version = msg.buildVersion.split(".")[0:2]
-            build_versions_match = (sdk_major_version == build_major_version)
+            if clad_hashes_match and not build_versions_match:
+                # If CLAD hashes match, and this is only a minor version change,
+                # then still allow connection (it's just an app hotfix
+                # that didn't require CLAD or SDK changes)
+                sdk_major_version = cozmoclad.__build_version__.split(".")[0:2]
+                build_major_version = msg.buildVersion.split(".")[0:2]
+                build_versions_match = (sdk_major_version == build_major_version)
 
         if clad_hashes_match and build_versions_match:
             connection_success_msg = _clad_to_engine_iface.UiDeviceConnectionSuccess(
